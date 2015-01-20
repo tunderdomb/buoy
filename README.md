@@ -21,7 +21,7 @@ You wouldn't be able to interact with a component if it wasn't defined before.
 
 ```js
 var app = new App()
-app.component("my:component)
+app.component("my:component")
 app.interact("my:component")
 ```
 
