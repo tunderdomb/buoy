@@ -9,7 +9,7 @@ var messageScreen = app.component("screen:message", function onCreate( createInt
     })
   }
 
-  var someElement = app.construct("some-element", "arg1", "arg2")
+  var someElement = app.render("some-element", "arg1", "arg2")
 
   var relayIntent = app.relay("action:send", {/*data*/}, function onResult( result ){
 
@@ -21,8 +21,8 @@ var messageScreen = app.component("screen:message", function onCreate( createInt
 })
 
 // static receiver
-messageScreen.receive("action:send", function receiver( intent ){
-  var createIntent = app.invoke("screen:sending", intent, function onResult( result ){
+messageScreen.receiver("action:send", function( relayIntent, sendResult ){
+  var createIntent = app.activate("screen:sending", relayIntent, function onResult( result ){
 
   })
   if( createIntent.refused ){

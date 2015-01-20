@@ -1,6 +1,5 @@
 
 var Intent = require("./Intent")
-var Widget = require("./Widget")
 
 module.exports = Component
 
@@ -16,18 +15,13 @@ function Component( name, onCreate ){
 
 // nouns
 
-Component.prototype.Component = function( name, onCreate ){
+Component.prototype.component = function( name, onCreate ){
   this._componentList.push(this._components[name] = new Component(name, onCreate))
-}
-Component.prototype.widget = function( name, definition ){
-  var widget = new Widget(name, definition)
-  this._widgets[name] = widget
-  return widget.Constructor
 }
 
 // verbs
 
-Component.prototype.invoke = function( name, data, onResult ){
+Component.prototype.activate = function( name, data, onResult ){
   var component = this
   var subComponent = this._components[name]
   var createIntent = new Intent(data)
@@ -64,15 +58,15 @@ Component.prototype.interactWithAll = function( componentName, immediate ){
   }
 }
 Component.prototype.relay = function( name, data, onResult ){
-  var relayintent = new Intent(data)
+  var relayIntent = new Intent(data)
 
   // intents are handled first on the root level
   if( this._receivers.hasOwnProperty(name) && typeof this._receivers == "function" ){
-    this._receivers[name](relayintent, onResult)
+    this._receivers[name](relayIntent, onResult)
   }
 
-  if( relayintent.interrupted ){
-    return relayintent
+  if( relayIntent.interrupted ){
+    return relayIntent
   }
 
   var components = this._componentList
@@ -85,9 +79,9 @@ Component.prototype.relay = function( name, data, onResult ){
     component = components[i]
     // handle local root
     if( typeof component._receivers[name] == "function" ){
-      component._receivers[name](relayintent, onResult)
-      if( relayintent.interrupted ){
-        return relayintent
+      component._receivers[name](relayIntent, onResult)
+      if( relayIntent.interrupted ){
+        return relayIntent
       }
     }
     // save state/progress and change list to sub components
@@ -105,11 +99,8 @@ Component.prototype.relay = function( name, data, onResult ){
     }
   }
 
-  return relayintent
+  return relayIntent
 }
-Component.prototype.receive = function( name, receiver ){
+Component.prototype.receiver = function( name, receiver ){
   this._receivers[name] = receiver
-}
-App.prototype.construct = function( widget ){
-  return this._widgets[widget].construct([].slice(arguments, 1))
 }

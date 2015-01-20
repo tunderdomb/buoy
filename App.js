@@ -1,5 +1,6 @@
 
 var Component = require("./Component")
+var Widget = require("./Widget")
 
 function App( name, onCreate ){
   Component.apply(this, arguments)
@@ -22,4 +23,13 @@ App.prototype.invokeOnTop = function( name, data, onResult ){
   app.componentStack.push(component)
   app.top = component
   return component
+}
+
+App.prototype.widget = function( name, definition ){
+  var widget = new Widget(name, definition)
+  this._widgets[name] = widget
+  return widget.Constructor
+}
+App.prototype.render = function( widget ){
+  return this._widgets[widget].construct([].slice(arguments, 1))
 }
