@@ -1,7 +1,7 @@
 {
   "name": "tangible",
-  "version": "0.1.0",
-  "description": "Component infrastructure tool web",
+  "version": "0.1.1",
+  "description": "Component infrastructure tool for modulare web applications",
   "main": "index.js",
   "directories": {
     "example": "examples"
@@ -10,10 +10,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "app",
-    "components",
-    "infrastructure"
+    "component",
+    "modular",
+    "web",
+    "app"
   ],
   "author": "tunderdomb",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "stations": "~0.2.0"
+  }
 }
