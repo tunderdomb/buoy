@@ -5,9 +5,7 @@ module.exports = function( app ){
    * it doesn't even need to be defined
    * it's here just for reference
    * */
-  app.component("menu", function onActivate(  ){
-    // initialize menu when activated
-  })
+  app.component("menu")
 
   /**
    * This function is called when a new file is opened

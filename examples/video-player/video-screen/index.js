@@ -3,9 +3,7 @@ module.exports = function( app ){
   /**
    * This component is here just for reference
    * */
-  var videoScreen = app.component("video-screen", function onActivate(  ){
-    // initialize component when activated
-  })
+  var videoScreen = app.component("video-screen")
 
 
   /**

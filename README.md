@@ -3,10 +3,48 @@ tangible
 
 **WIP NOTICE: This code is in active development and the API and concepts are subject to change.**
 
+## About
+
 Tangible is a work-in-progress tool for writing modular web applications.
 It's designed to help decouple separate parts into components.
 
-Tangible **IS**
+#### Motivation
+
+There are more than enough javascript frameworks out there.
+Every one of them tries to address some, or nearly all aspects of our workflows.
+At the time of writing this tool the state of javascript is slowly descending from
+monolithic solutions to modularized components.
+
+For once, Tangible aims to be an advocate of this move.
+Second, even with the vast amount of tools in our hands none of them
+addresses code organization on a project level.
+We have DOM manipulation tools, routers, templates, script loaders and all that in one,
+but none provides a way to write maintainable and organized code.
+
+Your choice is often comes with a compromise;
+writing code in a specific way,
+not being able to render on server side,
+being tied to built in tools.
+
+This is why Tangible is focusing on one thing:
+help you create a maintainable and logical abstraction of business logic.
+
+The goal is to provide a tool which supports intuitive and easy to understand code.
+No matter how complex your app is, it should be transparent and easy to grasp.
+
+#### Is this an MVC?
+
+No. Tangible is not an MVC framework. It's missing two layers from the pattern.
+It doesn't provide models and controllers.
+
+By excluding models your application has the ability to use a dedicated model
+library that can be changed any time during development.
+This decision encourages modular codebase.
+
+The controller layer by design is embodied by intents and relays,
+but so indirect and incompatible with the term that it can't be considered one.
+
+### Tangible **IS**
 
   - a single responsibility tool
   - a way to isolate code into larger, logical chunks
@@ -14,14 +52,16 @@ Tangible **IS**
   - an integrated event bus
   - an intent relay network
 
-Tangible is **NOT**
+### Tangible is **NOT**
 
   - a framework
   - monolithic
   - a DOM manipulation helper
   - a router
   - enforcing conventions
-  - dictates how and where you write your code
+  - dictating how and where you write your code
+  - tying you to built in tools
+
 
 ## The Concept
 

@@ -16,6 +16,14 @@ without referencing each other.
     - player-controls
 
 
+The source is recommended to be read in the following order:
+
+  - [index.js](index.js)
+  - [app-menu/index.js](app-menu/index.js)
+  - [video-screen/index.js](video-screen/index.js)
+  - [video-screen/player-controls/index.js](video-screen/player-controls/index.js)
+  - [playlist/index.js](playlist/index.js)
+
 ### app menu
 
 Contains buttons like open file.

@@ -8,9 +8,7 @@ module.exports = function( app ){
    * The playlist component is here for just reference
    * it serves no purpose in this demonstration
    * */
-  app.component("playlist", function onActivate(  ){
-    // initialize component
-  })
+  app.component("playlist")
 
   /**
    * The playlist reacts to open intents
