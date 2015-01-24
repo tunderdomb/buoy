@@ -20,6 +20,6 @@
   "author": "tunderdomb",
   "license": "MIT",
   "dependencies": {
-    "stations": "^0.2.0"
+    "stations": "^0.2.1"
   }
 }
