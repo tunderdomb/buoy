@@ -32,7 +32,7 @@ Tangible operates with these main concepts:
   - Intents
   - Widgets
 
-Check out the [examples](tree/master/examples) if you better understand code.
+Check out the [examples](examples/) if you better understand code.
 
 ## Components
 
