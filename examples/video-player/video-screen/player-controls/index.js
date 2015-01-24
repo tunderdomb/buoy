@@ -5,9 +5,7 @@ module.exports = function( app, videoScreen ){
    * They don't have to, but here we demonstrate a way to organize
    * different parts of an app
    * */
-  videoScreen.component("player-controls", function onActivate(  ){
-    // initialize component
-  })
+  videoScreen.component("player-controls")
 
   /**
    * This function can be called when a user clicks on a play button
