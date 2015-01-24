@@ -32,6 +32,7 @@ module.exports = function( app ){
   }
 
   function createPlaylistItem( name ){
+    // this returns a dom element defined in the widget
     var videoItem = tangible.widget.render("video-item", name)
     // append the element to the DOM ...
   }
