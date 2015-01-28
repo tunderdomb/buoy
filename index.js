@@ -1,7 +1,6 @@
 var App = require("./lib/App")
 var Intent = require("./lib/Intent")
 var Component = require("./lib/Component")
-var widget = require("./lib/widget")
 
 module.exports.App = App
 module.exports.app = function( name ){
@@ -17,5 +16,3 @@ module.exports.Intent = Intent
 module.exports.intent = function( data ){
   return new Intent(data)
 }
-
-module.exports.widget = widget
