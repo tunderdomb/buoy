@@ -10,6 +10,12 @@ synapse
 
 [Excerpt from Wikipedia](http://en.m.wikipedia.org/wiki/Synapse)
 
+## Quick reference
+
+  - [Getting started](docs/Getting started.md)
+  - [Api docs](docs/api/)
+  - [Examples](examples/)
+
 ## About
 
 Synapse is a tool for application state management and inter-component communication.
