@@ -1,10 +1,11 @@
 {
-  "name": "tangible",
-  "version": "0.1.1",
-  "description": "A tool to write decoupled modular web apps",
+  "name": "synapse",
+  "version": "0.2.0",
+  "description": "Application state management and inter-component communication network",
   "main": "index.js",
   "browser": "index.js",
   "directories": {
+    "doc": "docs",
     "example": "examples"
   },
   "scripts": {
@@ -21,5 +22,13 @@
   "license": "MIT",
   "dependencies": {
     "stations": "^0.2.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tunderdomb/synapse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tunderdomb/synapse/issues"
   }
 }

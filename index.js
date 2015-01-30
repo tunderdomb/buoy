@@ -1,15 +1,15 @@
-var App = require("./lib/App")
+var Network = require("./lib/Network")
 var Intent = require("./lib/Intent")
-var Component = require("./lib/Component")
+var Endpoint = require("./lib/Endpoint")
 
-module.exports.App = App
-module.exports.app = function( name ){
-  return new App(name)
+module.exports.Network = Network
+module.exports = function( name ){
+  return new Network(name)
 }
 
-module.exports.Component = Component
-module.exports.component = function( name, onCreate ){
-  return new Component(name, onCreate)
+module.exports.Endpoint = Endpoint
+module.exports.endpoint = function( name ){
+  return new Endpoint(name)
 }
 
 module.exports.Intent = Intent

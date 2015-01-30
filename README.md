@@ -1,149 +1,131 @@
-tangible
+synapse
 ========
 
 **WIP NOTICE: This code is in active development and the API and concepts are subject to change.**
 
+> In the nervous system, a synapse is a structure that permits a neuron
+> to pass an electrical or chemical signal to another cell.
+> [...] neurons are not continuous throughout the body,
+> yet still communicate with each other [...]
+
+[Excerpt from Wikipedia](http://en.m.wikipedia.org/wiki/Synapse)
+
 ## About
 
-Tangible is a work-in-progress tool for writing modular web applications.
-It's designed to help decouple separate parts into components.
+Synapse is a tool for application state management and inter-component communication.
+It provides a solution to a common problem in MV* architectures
+[described really well in this article](http://www.code-experience.com/why-you-might-not-need-mvc-with-reactjs/):
 
-#### Motivation
+> MVC helps you to manage state. But only a specific type of state, namely data state.
+> Loading data from the server and visualize it in a view is easy with Backbone.
+> You can display as much data as you want without creating a mess.
+>
+> [...]
+>
+> Let's contrast this with a type of state that I call application state:
+> The application state defines what data is displayed in what way at the moment.
+>
+> [...]
+>
+> It does not define how communication flows.
 
-There are more than enough javascript frameworks out there.
-Every one of them tries to address some, or nearly all aspects of our workflows.
-At the time of writing this tool the state of javascript is slowly descending from
-monolithic solutions to modularized components.
+Synapse solves this by design.
 
-For once, Tangible aims to be an advocate of this move.
-Second, even with the vast amount of tools in our hands none of them
-addresses code organization on a project level.
-We have DOM manipulation tools, routers, templates, script loaders and all that in one,
-but none provides a way to write maintainable and organized code.
+It provides a network that centralizes communication, not interaction.
+This detaches direct references and dependencies across views/controllers and everything.
 
-Your choice is often comes with a compromise;
-writing code in a specific way,
-not being able to render on server side,
-being tied to built in tools.
+The network enables hierarchical branching, so that components can define their children/parent,
+and also providing a way for responsibility encapsulation.
 
-This is why Tangible is focusing on one thing:
-help you create a maintainable and logical abstraction of business logic.
+The messaging across endpoints of a network flows top-to-bottom.
+This means a higher order endpoint should know where to direct an incoming intent.
 
-The goal is to provide a tool which supports intuitive and easy to understand code.
-No matter how complex your app is, it should be transparent and easy to grasp.
+**NOTE**:This is in contrast to the event model in a browser - where events have a capture and bubble phase.
 
-#### Is this an MVC?
+### Architecture agnostic
 
-No. Tangible is not an MVC framework. It's missing two layers from the pattern.
-It doesn't provide models and controllers.
+The concept of endpoints/components is no more than a convention.
+By itself a network endpoint doesn't represent or even capable of more than simply
+transmitting and receiving messages.
 
-By excluding models your application has the ability to use a dedicated model
-library that can be changed any time during development.
-This decision encourages modular codebase.
+It's implementation that gives endpoints logical meaning.
 
-The controller layer by design is embodied by intents and relays,
-but so indirect and incompatible with the term that it can't be considered one.
+For example an endpoint can serve as many things:
 
-### Tangible **IS**
+  - a rendering hub
+  - a factory
+  - a single service
+  - a widget/view controller
 
-  - a single responsibility tool
-  - a way to isolate code into larger, logical chunks
-  - a way to decouple code
-  - an integrated event bus
-  - an intent relay network
+All logic is defined by the user; a component acts only as the communication interface.
 
-### Tangible is **NOT**
+# Overview
 
-  - a framework
-  - monolithic
-  - a DOM manipulation helper
-  - a router
-  - enforcing conventions
-  - dictating how and where you write your code
-  - tying you to built in tools
+## Create a network
 
+```js
+var network = synapse()
+```
 
-## The Concept
+## Define endpoints of a network
 
-Tangible operates with these main concepts:
+```js
+var endpoint = network.endpoint("endpoint")
+```
 
-  - Components
-  - App
-  - Intents
-  - Widgets
+## Transmit intents to endpoints
 
-Check out the [examples](examples/) if you better understand code.
+```js
+network.transmit("type", {...})
+```
 
-## Components
+## Receive intents
 
-You may think of components as packages in static languages.
-Where a class represents implementation of business logic (APIs),
-a component (analogue of a package) represents separation of roles
-in an application.
+```js
+network.receive("type", function(intent){ ... })
+```
 
-Packages can't be instantiated, but components can be activated.
+## Interact with endpoints directly
 
-A component is responsible for separating and encapsulating different parts
-of an app and providing means to communicate with others.
+```js
+var endpoint = network.interact("endpoint")
+```
 
-Responsibilities of components are
+## Hierarchical branching
 
-  - creating and manage DOM elements
-  - listening on relevant user actions
-  - relay intents to other parts of the app
-  - react to intents from outside
+```js
+var a = network.endpoint("a")
+var b = a.endpoint("a:b")
+```
+`b` is now a sub component of `a`.
 
-A component provides API in the form of intents and relays.
-Intents are relayed through the component network and carry arbitrary information.
-Much like events;
-but intents are broadcasted to sub components by-default and bubble downwards.
+Transmitting a message to `a` will cascade down to `b`.
 
-### Component network
+```js
+a.receive("message", function(){
+  console.log("I'm a")
+})
+b.receive("message", function(){
+  console.log("I'm b")
+})
+a.transmit("message")
+```
+Yields:
+```
+> I'm a
+> I'm b
+```
+and
+```js
+b.transmit("message")
+```
+Yields:
+```
+> I'm b
+```
 
-Components can defined under other components.
-It's more of a way to indicate organization than actual logic.
-
-For example the app can communicate through the global relay
-and work perfectly well, but defining sub components can
-indicate that some intents will never leave a specific scope.
-
-This is a way to maintain separation of roles in the application.
-
-From the video player example:
-
-  The video control component relays information about video control buttons.
-  Like play, pause, next, stop.
-
-  The video screen may be interested in all of that,
-  but other parts of the application don't necessarily need this information.
-  For example the playlist wouldn't care if a play button is clicked.
-
-  By defining the player controls as a sub component of the video screen,
-  the controls have a way to restrict the relayed intents to the video screen.
-
-  The app would still work if this separation wouldn't be there.
-  But the intention is clear that some intents are scoped to a component.
-
-## App
-
-The app instance is just a subset of a `Component`.
-
-## Intents
-
-Intents are simple message object that carry arbitrary data.
-They are created when a relay is called on a component.
-
-Intents can be interrupted.
-
-An interrupted intent immediately stops propagating.
-
-## Widgets
-
-Widgets are a thin wrapper around web components/custom elements.
-They are not tied to an app instance in any way
-and can be defined outside of any component code.
-
+This way you can encapsulate message scopes.
 
 ## Licence
 
-MIT run with it
+MIT; run with it
