@@ -21,7 +21,7 @@
   "author": "tunderdomb",
   "license": "MIT",
   "dependencies": {
-    "stations": "^0.2.1"
+    "stations": "latest"
   },
   "devDependencies": {},
   "repository": {

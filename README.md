@@ -43,20 +43,20 @@ This detaches direct references and dependencies across views/controllers and ev
 The network enables hierarchical branching, so that components can define their children/parent,
 and also providing a way for responsibility encapsulation.
 
-The messaging across endpoints of a network flows top-to-bottom.
-This means a higher order endpoint should know where to direct an incoming intent.
+The messaging across components of a network flows top-to-bottom.
+This means a higher order component should know where to direct an incoming intent.
 
 **NOTE**:This is in contrast to the event model in a browser - where events have a capture and bubble phase.
 
 ### Architecture agnostic
 
-The concept of endpoints/components is no more than a convention.
-By itself a network endpoint doesn't represent or even capable of more than simply
+The concept of components is no more than a convention.
+By itself a network component doesn't represent or even capable of more than simply
 transmitting and receiving messages.
 
-It's implementation that gives endpoints logical meaning.
+It's implementation that gives components logical meaning.
 
-For example an endpoint can serve as many things:
+For example a component can serve as many things:
 
   - a rendering hub
   - a factory
@@ -73,13 +73,13 @@ All logic is defined by the user; a component acts only as the communication int
 var network = synapse()
 ```
 
-## Define endpoints of a network
+## Define components of a network
 
 ```js
-var endpoint = network.endpoint("endpoint")
+var component = network.component("some name")
 ```
 
-## Transmit intents to endpoints
+## Transmit intents to components
 
 ```js
 network.transmit("type", {...})
@@ -91,17 +91,17 @@ network.transmit("type", {...})
 network.receive("type", function(intent){ ... })
 ```
 
-## Interact with endpoints directly
+## Interact with components directly
 
 ```js
-var endpoint = network.interact("endpoint")
+var component = network.interact("some name")
 ```
 
 ## Hierarchical branching
 
 ```js
-var a = network.endpoint("a")
-var b = a.endpoint("a:b")
+var a = network.component("a")
+var b = a.component("a:b")
 ```
 `b` is now a sub component of `a`.
 
