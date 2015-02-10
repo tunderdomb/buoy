@@ -75,29 +75,39 @@ var network = synapse()
 
 ## Define components of a network
 
-```js
-var component = network.component("some name")
-```
-
-## Transmit intents to components
+**Note:** the root network is also a `Component` instance.
 
 ```js
-network.transmit("type", {...})
+var component = network.component("some component")
 ```
 
-## Receive intents
+## Register services on components
 
 ```js
-network.receive("type", function(intent){ ... })
+var component = component.service("some service", function( intent ){
+  // process the intent here
+})
 ```
 
-## Interact with components directly
+## Relay intents to services
 
 ```js
-var component = network.interact("some name")
+network.relay("some service", {...})
 ```
 
-## Hierarchical branching
+## Bubble intents to parents
+
+```js
+component.bubble("some service", {...})
+```
+
+## Call services directly on a component
+
+```js
+component.run("some service", {...})
+```
+
+## Component hierarchy
 
 ```js
 var a = network.component("a")
@@ -105,16 +115,16 @@ var b = a.component("a:b")
 ```
 `b` is now a sub component of `a`.
 
-Transmitting a message to `a` will cascade down to `b`.
+Relaying a message to `a` will propagate down to `b`.
 
 ```js
-a.receive("message", function(){
+a.service("message", function(){
   console.log("I'm a")
 })
-b.receive("message", function(){
+b.service("message", function(){
   console.log("I'm b")
 })
-a.transmit("message")
+a.relay("message")
 ```
 Yields:
 ```
@@ -123,12 +133,35 @@ Yields:
 ```
 and
 ```js
-b.transmit("message")
+b.relay("message")
 ```
 Yields:
 ```
 > I'm b
 ```
+but
+```js
+b.bubble("message")
+```
+Yields:
+```
+> I'm a
+```
+also
+```js
+a.bubble("message")
+```
+Yields nothing:
+```
+>
+```
+because it is assumed that relays are activated on high up
+on the component graph, meaning it is expected the intent
+to trigger a service on the receiving end;
+but bubbles are intended to be called on a host component possibly
+to propagate state upwards so they shouldn't trigger any service
+on the host because it can just do that before or after the bubble is sent.
+
 
 This way you can encapsulate message scopes.
 
