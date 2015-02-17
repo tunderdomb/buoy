@@ -1,7 +1,7 @@
 {
-  "name": "synapse",
-  "version": "0.2.0",
-  "description": "Application state management and inter-component communication network",
+  "name": "buoy",
+  "version": "0.3.0",
+  "description": "A simple application communication interface",
   "main": "index.js",
   "browser": "index.js",
   "directories": {
