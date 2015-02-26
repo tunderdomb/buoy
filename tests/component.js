@@ -195,6 +195,20 @@ describe("Component", function(  ){
     it("should return null if a service doesn't exist", c(function( c1 ){
       assert.isNull(c1.invoke("s1"))
     }))
+    it("should define lazy clients on the root", c(function( c1, c2 ){
+      c1.component(c2)
+      c2.invokeLazy("s1")
+      assert.isUndefined(c2._lazyClients["s1"])
+      assert.isDefined(c1._lazyClients["s1"])
+      assert.lengthOf(c1._lazyClients["s1"], 1)
+    }))
+    it("should hoist lazy clients after joining a network", c(function( c1, c2 ){
+      c2.invokeLazy("s1")
+      c1.component(c2)
+      assert.isUndefined(c2._lazyClients["s1"])
+      assert.isDefined(c1._lazyClients["s1"])
+      assert.lengthOf(c1._lazyClients["s1"], 1)
+    }))
   })
 
 })
