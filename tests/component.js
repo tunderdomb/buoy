@@ -1,5 +1,4 @@
 var Component = require("../lib/Component")
-var Radio = require("../lib/Radio")
 var assert = require("chai").assert
 
 /**
@@ -19,9 +18,6 @@ function c( fn ){
 
 describe("Component", function(  ){
 
-  it("should be a Radio instance", c(function( c ){
-    assert.instanceOf(c, Radio)
-  }))
   it("should have no parent initially", c(function( c ){
     assert.isNull(c.parent)
   }))
@@ -29,7 +25,7 @@ describe("Component", function(  ){
     assert.isString(c.name)
   }))
 
-  describe("sub-components", function(  ){
+  describe("components", function(  ){
     it("should tell if a sub component is defined", c(function( c1, c2, c3 ){
       assert.isFalse(c1.isComponentDefined(c2))
       assert.isFalse(c1.isComponentDefined(c2.name))
@@ -161,9 +157,7 @@ describe("Component", function(  ){
       // and moved to the new root
       assert.isDefined(c1._services["s2"])
     }))
-  })
 
-  describe("invoke", function(  ){
     it("should invoke a service synchronously", c(function( c1 ){
       var invoked = false
       c1.service("s1", function(){
@@ -209,6 +203,14 @@ describe("Component", function(  ){
       assert.isDefined(c1._lazyClients["s1"])
       assert.lengthOf(c1._lazyClients["s1"], 1)
     }))
+  })
+
+  describe("intents", function(  ){
+
+  })
+
+  describe("events", function(  ){
+
   })
 
 })

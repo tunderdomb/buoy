@@ -1,7 +1,6 @@
 var Intent = require("./lib/Intent")
 var Component = require("./lib/Component")
 var Channel = require("./lib/Channel")
-var Radio = require("./lib/Radio")
 
 module.exports.Component = Component
 module.exports.component = function( name ){
@@ -11,11 +10,6 @@ module.exports.component = function( name ){
 module.exports.Intent = Intent
 module.exports.intent = function( data ){
   return new Intent(data)
-}
-
-module.exports.Radio = Radio
-module.exports.radio = function( name ){
-  return new Radio(name)
 }
 
 module.exports.Channel = Channel

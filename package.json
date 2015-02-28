@@ -1,6 +1,6 @@
 {
   "name": "buoy",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A simple application communication interface",
   "main": "index.js",
   "browser": "index.js",
@@ -20,9 +20,6 @@
   ],
   "author": "tunderdomb",
   "license": "MIT",
-  "dependencies": {
-    "stations": "latest"
-  },
   "devDependencies": {
     "chai": "^2.0.0"
   },
