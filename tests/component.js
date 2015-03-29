@@ -142,6 +142,7 @@ describe("Component", function(  ){
       assert.isTrue(invoked)
     }))
     it("should hoist services after joining a network", c(function( c1, c2 ){
+      debugger
       function s2(  ){}
       // service defined before joining a network
       // the service here is on the root
