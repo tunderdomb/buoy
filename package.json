@@ -1,12 +1,13 @@
 {
   "name": "buoy",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Component architecture with services and intents",
   "main": "index.js",
   "browser": "index.js",
   "directories": {
     "doc": "docs",
-    "example": "examples"
+    "example": "examples",
+    "test": "tests"
   },
   "scripts": {
     "test": "mocha tests"
@@ -25,9 +26,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tunderdomb/synapse.git"
+    "url": "https://github.com/tunderdomb/buoy.git"
   },
   "bugs": {
-    "url": "https://github.com/tunderdomb/synapse/issues"
-  }
+    "url": "https://github.com/tunderdomb/buoy/issues"
+  },
+  "homepage": "https://github.com/tunderdomb/buoy"
 }
