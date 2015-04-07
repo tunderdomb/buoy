@@ -142,7 +142,6 @@ describe("Component", function(  ){
       assert.isTrue(invoked)
     }))
     it("should hoist services after joining a network", c(function( c1, c2 ){
-      debugger
       function s2(  ){}
       // service defined before joining a network
       // the service here is on the root
@@ -203,6 +202,85 @@ describe("Component", function(  ){
       assert.isUndefined(c2._lazyClients["s1"])
       assert.isDefined(c1._lazyClients["s1"])
       assert.lengthOf(c1._lazyClients["s1"], 1)
+    }))
+    it("should serve lazy clients after joining a network", c(function( master, slave ){
+      var invoked = false
+      master.invokeLazy("s2", function client(){
+        invoked = true
+      })
+      assert.isFalse(invoked)
+      slave.service("s2", function( client ){
+        client()
+      })
+      assert.isFalse(invoked)
+      master.component(slave)
+      assert.isTrue(invoked)
+    }))
+    it("should notify that a service was registered", c(function( c1, c2 ){
+      var notified = false
+      c1.intent("service", function( name, handler ){
+        notified = true
+      })
+      c1.service("s1")
+      assert.isTrue(notified)
+    }))
+    it("should notify that a specific service was registered", c(function( c1, c2 ){
+      var notified = false
+      c1.intent("service:s1", function( name, handler ){
+        notified = true
+      })
+      c1.service("s1")
+      assert.isTrue(notified)
+    }))
+    it("should pass service name and handler when notifying that a service was registered", c(function( c1, c2 ){
+      var passedName
+      var passedHandler
+      c1.intent("service", function( intent ){
+        passedName = intent.data.name
+        passedHandler = intent.data.handler
+      })
+      function handler(  ){}
+      c1.service("s1", handler)
+      assert.equal(passedName, "s1")
+      assert.equal(passedHandler, handler)
+    }))
+    it("should pass service handler when notifying that a specific service was registered", c(function( c1, c2 ){
+      var passedHandler
+      c1.intent("service:s1", function( intent ){
+        passedHandler = intent.data.handler
+      })
+      function handler(  ){}
+      c1.service("s1", handler)
+      assert.equal(passedHandler, handler)
+    }))
+    it("should notify that a service was registered after hoisting", c(function( c1, c2 ){
+      function s2(  ){}
+      // service defined before joining a network
+      // the service here is on the root
+      c2.service("s2", s2)
+      var notified = false
+      c1.intent("service", function(){
+        notified = true
+      })
+      // after joining a network the service should be hoisted to the root
+      c1.component(c2)
+      assert.isTrue(notified)
+    }))
+    it("should call back when a service becomes available", c(function( c1, c2 ){
+      var notified = false
+      c1.whenAvailable("s1", function(){
+        notified = true
+      })
+      c1.service("s1")
+      assert.isTrue(notified)
+    }))
+    it("should call back when a service becomes available", c(function( c1, c2 ){
+      var notified = false
+      c1.service("s1")
+      c1.whenAvailable("s1", function(){
+        notified = true
+      })
+      assert.isTrue(notified)
     }))
   })
 
