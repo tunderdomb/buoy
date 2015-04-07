@@ -1,6 +1,8 @@
 var Component = require("../lib/Component")
 var assert = require("chai").assert
 
+console.log("Note: some warnings are expected")
+
 /**
  * fill the arguments with component instances
  * */
