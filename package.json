@@ -1,6 +1,6 @@
 {
   "name": "buoy",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Component architecture with services and intents",
   "main": "index.js",
   "browser": "index.js",
