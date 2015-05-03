@@ -285,4 +285,19 @@ describe("Component", function(  ){
       assert.isTrue(notified)
     }))
   })
+
+  describe("events", function(  ){
+    it("should contain Radio methods", c(function( c ){
+      assert.isFunction(c.channel)
+      assert.isFunction(c.channelExists)
+      assert.isFunction(c.deleteChannel)
+      assert.isFunction(c.hasSubscribers)
+      assert.isFunction(c.isSubscribed)
+      assert.isFunction(c.broadcast)
+      assert.isFunction(c.subscribe)
+      assert.isFunction(c.unsubscribe)
+      assert.isFunction(c.peek)
+      assert.isFunction(c.emptyChannel)
+    }))
+  })
 })

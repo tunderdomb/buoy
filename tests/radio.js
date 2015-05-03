@@ -1,4 +1,3 @@
-var Component = require("../lib/Component")
 var Radio = require("../lib/Radio")
 var Channel = require("../lib/Channel")
 var assert = require("chai").assert
