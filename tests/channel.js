@@ -195,6 +195,13 @@ describe("Channel", function(  ){
       channel.peek(subscriber)
       assert.isTrue(channel.isSubscribed(subscriber))
     })
+    it("should unsubscribe after a broadcast", function(  ){
+      var channel = new Channel()
+      function subscriber(  ){}
+      channel.peek(subscriber)
+      channel.broadcast()
+      assert.isFalse(channel.isSubscribed(subscriber))
+    })
   })
 
 })

@@ -1,7 +1,7 @@
 var Component = require("../lib/Component")
 var assert = require("chai").assert
 
-console.log("Note: some warnings are expected")
+console.info("Note: some warnings are expected\n")
 
 /**
  * fill the arguments with component instances
@@ -285,13 +285,4 @@ describe("Component", function(  ){
       assert.isTrue(notified)
     }))
   })
-
-  describe("intents", function(  ){
-
-  })
-
-  describe("events", function(  ){
-
-  })
-
 })
