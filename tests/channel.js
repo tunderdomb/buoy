@@ -202,6 +202,22 @@ describe("Channel", function(  ){
       channel.broadcast()
       assert.isFalse(channel.isSubscribed(subscriber))
     })
+    it("should iterate over all subscribers", function(  ){
+      var channel = new Channel()
+      var i = -1
+      var n = -1
+      var l = 10
+
+      do{
+        channel.peek(function subscriber(  ){
+          ++i
+        })
+      }
+      while( ++n < l )
+
+      channel.broadcast()
+      assert.equal(i, l)
+    })
   })
 
 })
