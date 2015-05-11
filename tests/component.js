@@ -205,6 +205,26 @@ describe("Component", function(  ){
       assert.isDefined(c1._lazyClients["s1"])
       assert.lengthOf(c1._lazyClients["s1"], 1)
     }))
+    it("should hoist lazy clients of the same service", c(function( c1, c2, c3 ){
+      c2.lazy("s1")
+      c3.lazy("s1")
+      c1.component(c2)
+      assert.isDefined(c1._lazyClients["s1"])
+      assert.lengthOf(c1._lazyClients["s1"], 1)
+      c1.component(c3)
+      assert.isDefined(c1._lazyClients["s1"])
+      assert.lengthOf(c1._lazyClients["s1"], 2)
+    }))
+    it("should call hoisted lazy clients right after they joined a network with a suitable service", c(function( c1, c2, c3 ){
+      var invoked = false
+      c3.lazy("s1")
+      c2.service("s1", function(){
+        invoked = true
+      })
+      c2.component(c3)
+      assert.isTrue(invoked)
+      c1.component(c2)
+    }))
     it("should serve lazy clients after joining a network", c(function( master, slave ){
       var invoked = false
       master.invokeLazy("s2", function client(){
