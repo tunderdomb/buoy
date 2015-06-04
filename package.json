@@ -10,7 +10,17 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha tests"
+    "test": "mocha tests",
+
+    "build-b":                 "browserify index.js -o build/buoy.js",
+    "build-b-standalone":      "browserify index.js --standalone buoy -o build/buoy.standalone.js",
+
+    "build-u":                 "uglifyjs --compress --mangle -o build/buoy.min.js -- build/buoy.js",
+    "build-u-standalone":      "uglifyjs --compress --mangle -o build/buoy.standalone.min.js -- build/buoy.standalone.js",
+
+    "build-b-all": "npm run build-b && npm run build-b-standalone",
+    "build-u-all": "npm run build-u && npm run build-u-standalone",
+    "build": "npm run build-b-all && npm run build-u-all"
   },
   "keywords": [
     "decoupled",
@@ -22,7 +32,9 @@
   "author": "tunderdomb",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^2.0.0"
+    "chai": "^2.0.0",
+    "browserify": "^9.0.8",
+    "uglify-js": "^2.4.20"
   },
   "repository": {
     "type": "git",
