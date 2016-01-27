@@ -27,6 +27,7 @@
     "chai": "^2.0.0",
     "documentation": "^4.0.0-beta",
     "es6-promise": "^3.0.2",
+    "mocha": "^2.4.2",
     "uglify-js": "^2.4.20"
   },
   "repository": {
