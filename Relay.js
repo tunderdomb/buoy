@@ -162,7 +162,7 @@ Relay.prototype.relay = function(name, data) {
     }
 
     handlers = handlers.map(function(handler) {
-      return promise.then(function() {
+      return Promise.resolve(intent).then(function() {
         return handler.call(relay, intent)
       }).then(function() {
         if (intent.interrupted) {
@@ -171,7 +171,9 @@ Relay.prototype.relay = function(name, data) {
       })
     })
 
-    promise = Promise.all(handlers)
+    promise = promise.then(function() {
+      return Promise.all(handlers)
+    })
   }
 
   return promise.then(function() {

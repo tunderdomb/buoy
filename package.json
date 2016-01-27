@@ -7,7 +7,7 @@
   "directories": {
     "doc": "docs",
     "example": "examples",
-    "test": "tests"
+    "test": "test"
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",

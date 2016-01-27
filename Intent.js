@@ -12,6 +12,7 @@ module.exports = Intent
  * @property {String} direction `"capture"`, `"bubble"`
  * */
 function Intent(data, source) {
+  Radio.call(this)
   this.data = data || null
   this.source = source || null
   this.interrupted = false

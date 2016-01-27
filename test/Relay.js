@@ -190,11 +190,10 @@ describe("Relay", function() {
           ++callCount
         })
 
-        relay1.transmit("test", origIntent)
-            .then(function(intent) {
-              assert.equal(callCount, 2)
-              cb()
-            })
+        relay1.transmit("test", origIntent).then(function(intent) {
+          assert.equal(callCount, 2)
+          cb()
+        })
       })
       async("interrupt", function(relay1, relay2, relay3, cb) {
         relay1.connect(relay2)
