@@ -1,5 +1,8 @@
-buoy [![Build Status](https://travis-ci.org/tunderdomb/buoy.svg)](https://travis-ci.org/tunderdomb/buoy)
+buoy
 ====
+
+[![npm](https://img.shields.io/npm/v/buoy.svg)](https://www.npmjs.com/package/buoy)
+[![Build Status](https://travis-ci.org/tunderdomb/buoy.svg)](https://travis-ci.org/tunderdomb/buoy)
 
 ## Info
 
